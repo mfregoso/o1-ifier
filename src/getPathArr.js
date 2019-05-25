@@ -1,9 +1,6 @@
 const getPathArr = str => {
   const pathArr = [];
   if (!str || typeof str !== "string") return pathArr;
-  if (str[0] === "'" || str[0] === '"') {
-    pathArr.push(str); return pathArr;
-  }
 
   const isOnlyNum = /[0-9]/;
   let validPath = true;
