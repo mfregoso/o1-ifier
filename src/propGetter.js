@@ -1,5 +1,5 @@
 const propGetter = (obj, path, defaultValue) => {
-  if (!obj || !path || typeof obj !== "object" && typeof path !== "string") return undefined;
+  if (!obj || !path || typeof obj !== "object" && typeof path !== "string") return defaultValue;
 
   const keys = path.split(".");
   const lastKeyIndex = keys.length - 1;
@@ -11,7 +11,7 @@ const propGetter = (obj, path, defaultValue) => {
     if (i !== lastKeyIndex && typeof thisValue === "object") {
       currObj = thisValue;
     } else if (thisValue === undefined) {
-      return undefined;
+      return defaultValue;
     }
     if (i === lastKeyIndex && thisValue !== undefined) {
       return thisValue;
