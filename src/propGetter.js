@@ -1,7 +1,9 @@
+const getPathArr = require("./getPathArr");
+
 const propGetter = (obj, path, defaultValue) => {
   if (!obj || !path || typeof obj !== "object" && typeof path !== "string") return defaultValue;
 
-  const keys = path.split(".");
+  const keys = getPathArr(path);
   const lastKeyIndex = keys.length - 1;
   let currObj = obj;
 
