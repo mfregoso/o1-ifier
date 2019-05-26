@@ -46,10 +46,18 @@ const arr = {
       }
     }
   ],
-  "..b.": "hello777777"
+  "..b.": "hello777777",
+  a: [
+    0,
+    [0,1,"X",3]
+  ],
+  "": 344,
 };
 
-console.log(propGetter(arr, "tt[2].hi.nested"));
+console.log(propGetter(arr, "tt[2].hi.nested.nonexistent", {}));
 console.log(propGetter(arr, "['..b.']"));
+console.log(propGetter(arr, "a[1][2][0]"));
+console.log(propGetter(arr, "['']"));
 console.log("Key Names Test:")
 console.log(getPathArr("hello.coo.pp[077][189]['y...o'].jljkk."))
+console.log(getPathArr("a['fff'][3]['tyy'][1]"));
