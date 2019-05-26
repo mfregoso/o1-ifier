@@ -1,20 +1,19 @@
-const data = require("./demo/testData"),
+const students = require("./demo/allStudents"),
+  rsvpStudents = require("./demo/rsvpStudents"),
   o1ifier = require("./src/o1ifier"),
   propGetter = require("./src/propGetter"),
   getPathArr = require("./src/getPathArr");
 
-const o1ifiedData = o1ifier(data, "id"); // build an object that is indexed by value of "id"
-
-const desiredIDs = [1, 2, 6, 7, "undefined", null]; // 
+const o1ifiedData = o1ifier(students, "id"); // build an object that is indexed by value of "id"
 
 const ONLookUpSteps = () => {
   let steps = 0;
-
-  for (let desiredID of desiredIDs) {
-    for (let item of data) {
+  for (let rsvpStu of rsvpStudents) {
+    for (let stu of students) {
       steps++;
-      if (desiredID === item.id) {
-        let oNLookUp = item;
+      if (rsvpStu.studentId === stu.id) {
+        let oNLookUp = stu;
+        break;
       }
     }
   }
@@ -24,13 +23,12 @@ const ONLookUpSteps = () => {
 
 const O1LookUpSteps = () => {
   let steps = 0;
-
-  for (let id of desiredIDs) {
+  for (let id of rsvpStudents) {
     steps++;
-    let o1Lookup = o1ifiedData[id];
+    let o1Lookup = o1ifiedData[id.studentId];
   }
 
-  return steps + data.length;
+  return steps + students.length;
 }
 
 console.log("Naive Look Up Steps: " + ONLookUpSteps());
