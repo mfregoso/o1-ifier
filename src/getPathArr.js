@@ -7,45 +7,48 @@ const getPathArr = str => {
   let insideBracket = false;
   let startIndex = 0;
 
+  const updateStartIndex = endIndex => startIndex = ++endIndex;
+
   const pushPrevStr = (endIndex) => {
-    if (startIndex === endIndex) {
-      startIndex = endIndex + 1;
-      return;
+    if (startIndex !== endIndex) {
+      const key = str.substr(startIndex, endIndex - startIndex);
+      pathArr.push(key);
     }
-    const key = str.substr(startIndex, endIndex - startIndex);
-    pathArr.push(key);
-    startIndex = endIndex + 1;
+    updateStartIndex(endIndex);
   }
 
   const hasEndQuotes = (str) => {
-    if (str[0] === "\"" && str[str.length - 1] === "\"") return true;
-    if (str[0] === "\'" && str[str.length - 1] === "\'") return true;
+    const first = str[0], last = str.slice(-1);
+    if (first === "\"" && last === "\"" || first === "\'" && last === "\'") return true;
   }
 
-  const pushBracketNotation = (end) => {
-    const key = str.substr(startIndex, end - startIndex);
+  const checkBracketNotation = (endIndex) => {
+    const key = str.substr(startIndex, endIndex - startIndex);
+    
     if (isOnlyNum.test(key)) {
-      pushPrevStr(end);
+      pushPrevStr(endIndex);
     } else if (hasEndQuotes(key)) {
       const noQuotesKey = key.substr(1, key.length - 2);
-      pathArr.push(noQuotesKey);
-      startIndex = end + 1;
+      if (noQuotesKey) pathArr.push(noQuotesKey);
+      else validPath = false;
+      updateStartIndex(endIndex);
     } else {
       validPath = false; //pushPrevStr(end);
     }
   }
 
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; validPath && i < str.length; i++) {
     if (str[i] === "[") {
       insideBracket = true;
       pushPrevStr(i);
     } else if (str[i] === "]") {
       insideBracket = false;
-      pushBracketNotation(i);
+      checkBracketNotation(i);
       continue;
     }
-    if (!insideBracket && str[i] === "." && str[i+1] === ".") {
-      validPath = false; break;
+    if (!insideBracket && str[i] === "." && str[i + 1] === ".") {
+      validPath = false;
+      break;
     } 
     if (!insideBracket && str[i] === "." && i !== 0) {
       pushPrevStr(i)
