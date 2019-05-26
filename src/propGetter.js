@@ -1,26 +1,19 @@
-const getPathArr = require("./getPathArr");
+const getKeysArr = require("./getPathArr");
 
 const propGetter = (obj, path, defaultValue) => {
   if (typeof obj !== "object" || typeof path !== "string") return defaultValue;
 
-  const keys = getPathArr(path);
-  const lastKeyIndex = keys.length - 1;
-  let currObj = obj;
+  const keys = getKeysArr(path);
+  let currVal = obj;
+  let idx = 0;
 
-  for (let i = 0; i <= lastKeyIndex; i++) {
-    const keyName = keys[i];
-    const thisValue = currObj[keyName];
-    if (i !== lastKeyIndex && typeof thisValue === "object") {
-      currObj = thisValue;
-    } else if (thisValue === undefined) {
-      return defaultValue;
-    }
-    if (i === lastKeyIndex && thisValue !== undefined) {
-      return thisValue;
-    }
+  while (currVal && idx < keys.length) { // skips 0 and "" //PREV: typeof currVal === "object"
+    currVal = currVal[keys[idx]];
+    idx++;
   }
-
-  return defaultValue;
+  
+  if (currVal === undefined) currVal = defaultValue;
+  return idx === keys.length ? currVal : defaultValue;
 }
 
 module.exports = propGetter;
