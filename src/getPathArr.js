@@ -29,8 +29,7 @@ const getPathArr = str => {
       pushPrevStr(endIndex);
     } else if (hasEndQuotes(key)) {
       const noQuotesKey = key.substr(1, key.length - 2);
-      if (noQuotesKey) pathArr.push(noQuotesKey);
-      else validPath = false;
+      pathArr.push(noQuotesKey);
       updateStartIndex(endIndex);
     } else {
       validPath = false; //pushPrevStr(end);
