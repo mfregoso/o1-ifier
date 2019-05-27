@@ -1,13 +1,12 @@
 const getKeysArr = require("./getPathArr");
 
 const propGetter = (obj, path, defaultValue) => {
-  if (typeof obj !== "object" || typeof path !== "string") return defaultValue;
-
   const keys = getKeysArr(path);
+  if (!keys.length || typeof obj !== "object") return defaultValue;
   let currVal = obj;
   let idx = 0;
 
-  while (currVal && idx < keys.length) { // skips 0 and "" //PREV: typeof currVal === "object"
+  while (currVal && idx < keys.length) {
     currVal = currVal[keys[idx]];
     idx++;
   }
