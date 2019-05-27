@@ -1,7 +1,7 @@
-const getKeysArr = require("./getPathArr");
+const extractPathKeys = require("./extractPathKeys");
 
-const propGetter = (obj, path, defaultValue) => {
-  const keys = getKeysArr(path);
+const get = (obj, path, defaultValue) => {
+  const keys = extractPathKeys(path);
   if (!keys.length || typeof obj !== "object") return defaultValue;
   let currVal = obj;
   let idx = 0;
@@ -15,4 +15,4 @@ const propGetter = (obj, path, defaultValue) => {
   return idx === keys.length ? currVal : defaultValue;
 }
 
-module.exports = propGetter;
+module.exports = get;
