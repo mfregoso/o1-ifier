@@ -3,7 +3,7 @@ const students = require("./demo/allStudents"),
   o1ifier = require("./src/o1ifier"),
   extractPathKeys = require("./src/extractPathKeys");
 
-const o1ifiedStudents = o1ifier.index(students, "id"); // build an object from students array that is indexed by value of "id"
+const o1ifiedStudents = o1ifier(students, "id"); // build an object from students array that is indexed by value of "id"
 
 const ONLookUpSteps = () => {
   let steps = 0;

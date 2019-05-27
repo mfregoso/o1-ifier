@@ -7,8 +7,7 @@ const get = (obj, path, defaultValue) => {
   let idx = 0;
 
   while (currVal && idx < keys.length) {
-    currVal = currVal[keys[idx]];
-    idx++;
+    currVal = currVal[keys[idx++]];
   }
   
   if (currVal === undefined) currVal = defaultValue;
