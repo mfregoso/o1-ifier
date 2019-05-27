@@ -1,6 +1,7 @@
 const getPathArr = str => {
   const pathArr = [];
-  if (!str || typeof str !== "string") return pathArr;
+  if (typeof str !== "string") return pathArr;
+  if (!str.length) return [""];
 
   const isOnlyNum = /[0-9]/;
   let validPath = true;
@@ -31,8 +32,10 @@ const getPathArr = str => {
       const noQuotesKey = key.substr(1, key.length - 2);
       pathArr.push(noQuotesKey);
       updateStartIndex(endIndex);
+    } else if (startIndex === endIndex) {
+      validPath = false;
     } else {
-      validPath = false; //pushPrevStr(end);
+      pushPrevStr(endIndex);
     }
   }
 
@@ -53,7 +56,7 @@ const getPathArr = str => {
       pushPrevStr(i)
       continue;
     } 
-    if (!insideBracket && i === str.length - 1) { // reached end
+    if (!insideBracket && i === str.length - 1) {
       pushPrevStr(str.length);
     }
   }
