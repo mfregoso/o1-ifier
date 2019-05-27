@@ -2,10 +2,10 @@ const propGetter = require("./propGetter");
 
 const o1ifier = (objsArr, keyName) => {
   const index = {};
-  if (Array.isArray(objsArr) && propGetter(objsArr[0], keyName) !== undefined) {
+  if (Array.isArray(objsArr)) {
     for (const obj of objsArr) {
       const keyValue = propGetter(obj, keyName);
-      index[keyValue] = obj;
+      if (keyValue !== undefined) index[keyValue] = obj;
     }
   }
   return index;
