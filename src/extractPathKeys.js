@@ -3,7 +3,6 @@ const getPathArr = str => {
   if (typeof str !== "string") return pathArr;
   if (!str.length) return [""];
 
-  const isOnlyNum = /[0-9]/;
   let validPath = true;
   let insideBracket = false;
   let startIndex = 0;
@@ -26,14 +25,12 @@ const getPathArr = str => {
   const checkBracketNotation = (endIndex) => {
     const key = str.substr(startIndex, endIndex - startIndex);
     
-    if (isOnlyNum.test(key)) {
-      pushPrevStr(endIndex);
+    if (startIndex === endIndex) {
+      validPath = false;
     } else if (hasEndQuotes(key)) {
       const noQuotesKey = key.substr(1, key.length - 2);
       pathArr.push(noQuotesKey);
       updateStartIndex(endIndex);
-    } else if (startIndex === endIndex) {
-      validPath = false;
     } else {
       pushPrevStr(endIndex);
     }
