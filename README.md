@@ -15,13 +15,9 @@ Suppose we have a users list API that returns an array of objects with the follo
 	}
 }
 ```
-Suppose we have another API that returns an array of the top 1000 users, where each item is an object with only the userId and rank:
-```javascript
-{
-	userId: 3478,
-	rank: 42
-}
-```
+To use o1ifier in this case, we would want to create an index based on the profile.id value.
+
+Example: o1ifier(studentsArr, "profile.id")
 
 ### Start Demo
 node runDemo.js
