@@ -1,9 +1,10 @@
 const students = require("./demo/allStudents"),
   rsvpStudents = require("./demo/rsvpStudents"),
   o1ifier = require("./src/o1ifier"),
+  get = require("./src/get"),
   extractPathKeys = require("./src/extractPathKeys");
 
-const o1ifiedStudents = o1ifier(students, "id"); // build an object from students array that is indexed by value of "id"
+const getStudentById = o1ifier(students, "id"); // returns a function that retrieve the value of a given key from its internal index
 
 const ONLookUpSteps = () => {
   let steps = 0;
@@ -24,7 +25,7 @@ const O1LookUpSteps = () => {
   let steps = 0;
   for (let id of rsvpStudents) {
     steps++;
-    let o1Lookup = o1ifiedStudents[id.studentId];
+    let o1Lookup = getStudentById(id.studentId);
   }
 
   return steps + students.length;
@@ -51,10 +52,10 @@ const arr = {
   "": 344,
 };
 
-console.log(o1ifier.get(arr, "tt[2].hi.nested.nonexistent", {}));
-console.log(o1ifier.get(arr, "['..b.']"));
-console.log(o1ifier.get(arr, "a[1][2][0]"));
-console.log(o1ifier.get(arr, "['']"));
+console.log(get(arr, "tt[2].hi.nested.nonexistent", {}));
+console.log(get(arr, "['..b.']"));
+console.log(get(arr, "a[1][2][0]"));
+console.log(get(arr, "['']"));
 console.log("Key Names Test:")
 console.log(extractPathKeys("hello.coo.pp[077][189]['y...o'].jljkk."))
 console.log(extractPathKeys("a['fff'][3]['tyy'][1]"));
