@@ -33,6 +33,7 @@ const O1LookUpSteps = () => {
 
 console.log("Naive Look Up Steps: " + ONLookUpSteps());
 console.log("O1-ified Look Up Steps: " + O1LookUpSteps());
+console.log("Example of getStudentById(3333): " + getStudentById(3333).name);
 
 const arr = {
   "tt": [
