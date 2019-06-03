@@ -9,12 +9,14 @@ const o1ifier = (objsArr, keyName) => {
 
   const index = hasMap ? new Map() : {};
 
-  for (const obj of objsArr) {
+  for (let i = 0; i < objsArr.length; i++) {
+    const obj = objsArr[i];
     const keyValue = get(obj, keyName);
+    
     if (keyValue !== undefined) {
       if (hasMap && !index.has(keyValue)) {
         index.set(keyValue, obj);
-      } else {
+      } else if (!hasMap && index[keyValue] === undefined) {
         index[keyValue] = obj;
       }
     }
