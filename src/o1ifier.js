@@ -1,26 +1,26 @@
 const get = require("./get");
 
-const o1ifier = (objsArr, keyName) => {
+const o1ifier = (objsArr, keyPathName) => {
   if (!Array.isArray(objsArr)) throw new Error("Not an array");
 
-  const index = {};
-
-  for (let i = 0; i < objsArr.length; i++) {
-    const obj = objsArr[i];
-    const keyValue = get(obj, keyName);
-    
+  const o1indexer = (o1index, obj, idx) => {
+    const keyValue = get(obj, keyPathName);
     if (keyValue !== undefined) {
-      if (index[keyValue] === undefined) {
-        index[keyValue] = obj;
+      if (o1index[keyValue] === undefined) {
+        obj.idx = idx;
+        o1index[keyValue] = obj;
       }
     }
+    return index;
+  };
+
+  const o1index = objsArr.reduce(o1indexer, {});
+
+  const o1lookup = (key) => {
+    return o1index[key];
   }
 
-  const getItem = (key) => {
-    return index[key];
-  }
-
-  return getItem;
+  return o1lookup;
 };
 
 module.exports = o1ifier;
