@@ -3,13 +3,15 @@ const get = require("./get");
 const o1ifier = (objsArr, keyPathName, overwrite) => {
   if (!Array.isArray(objsArr)) throw new Error("Not an array");
 
-  const o1indexer = (o1index, obj, idx) => {
+  const o1indexer = (o1index, obj) => {
     const keyValue = get(obj, keyPathName);
+
     if (keyValue !== undefined) {
-      const o1Obj = {key: keyValue, obj, idx};
+      const o1Obj = {key: keyValue, obj};
+      
       if (o1index[keyValue] === undefined) {
         o1index[keyValue] = [o1Obj];
-      } else if (get(o1index[keyValue][0], "key") !== keyValue && get(o1index[keyValue][1], "key") !== keyValue) {
+      } else if (o1index[keyValue].every(item => item.key !== keyValue)) {
         o1index[keyValue].push(o1Obj);
       } else if (overwrite) {
         const store = o1index[keyValue];
@@ -18,6 +20,7 @@ const o1ifier = (objsArr, keyPathName, overwrite) => {
         }
       }
     }
+
     return o1index;
   };
 
